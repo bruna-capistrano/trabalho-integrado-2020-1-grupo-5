@@ -7,7 +7,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
-const LinhaAdm = (props) => {
+/**
+ * @module adms/LinhaAdm
+ */
+
+ /**
+ * @typedef Adm
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do adm.
+  */
+
+ /**
+  * Renderiza uma linha na listagem de adms. 
+  * Cada linha conterá o nome do adm, juntamente com os botões para editar e excluir.
+  * @param {Adm} props.adm - Adm a ser renderizado na linha.
+  */
+
+function LinhaAdm(props) {
   if(props != null && props.adm != null && props.adm.id != null){
     return(
       <>

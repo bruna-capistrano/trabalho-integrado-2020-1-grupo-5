@@ -5,8 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import Azul from './camisaazul.png'
-import Vermelho from './camisavermelha.png'
 import Grid from '@material-ui/core/Grid';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
@@ -21,7 +19,27 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const LinhaPartida = (props) => {
+/**
+ * @module partidas/LinhaPartida
+ */
+
+ /**
+ * @typedef Partida
+ * @type {object}
+ * @property {date} data - data da partida.
+ * @property {string} time_A - nome do time A da partida.
+ * @property {number} gols_time_A - quantidade de gols do time A da partida.
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string} time_B - nome do time B da partida.
+ */
+
+ /**
+  * Renderiza uma linha na listagem de partidas. 
+  * Cada linha conterá a data, os times A e B e as respectivas quantidades de gols de cada time, juntamente com os botões para editar e excluir.
+  * @param {Partida} props.partida - Partida a ser renderizada na linha.
+  */
+
+function LinhaPartida(props) {
   const classes = useStyles();
 
   if(props != null && props.partida != null && props.partida.id != null){
@@ -34,16 +52,13 @@ const LinhaPartida = (props) => {
                     <ListItemText secondary={new Date(props.partida.data).toLocaleDateString()}/>            
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center" >
-                  <img className={classes.image} alt={props.partida.time_A} src={Azul}/>
-                  <br/>
                   <ListItemText secondary={props.partida.time_A}/>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
-                  <h3>{props.partida.gols_time_A} X {props.partida.gols_time_B}</h3>
+                  <ListItemText>{props.partida.gols_time_A} X {props.partida.gols_time_B}</ListItemText>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
-                  <img className={classes.image} alt={props.partida.time_B} src={Vermelho}/>
-                  <br/>
+                  
                   <ListItemText secondary={props.partida.time_B}/>
               </Grid>
             </Grid>        

@@ -9,7 +9,16 @@ import {deleteTimeServer, fetchTimes, selectAllTimes} from './TimesSlice'
 import TabelaTimes from './TabelaTimes'
 
 
-export default function ListagemTime(props) {
+/**
+ * @module times/ListagemTimes
+ */
+
+/**
+ * Renderiza a tela de Listagem de Times.
+ * 
+ */
+
+function ListagemTime() {
     const times = useSelector(selectAllTimes)
     const status = useSelector(state => state.times.status);
     const error = useSelector(state => state.times.error);
@@ -57,3 +66,4 @@ export default function ListagemTime(props) {
     );
   }
   
+  export default ListagemTime

@@ -26,11 +26,26 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
+/**
+ * @module adms/VisualizarAdm
+ */
 
-export default function VisualizarAdm() {
+ /**
+ * @typedef Adm
+ * @type {object}
+ * @property {string} id - identificador.
+ * @property {string} nome - nome do adm.
+ * @property {string} usuario - nome do usuário do adm.
+ * @property {string} senha - senha do usuário do adm.
+   */
+
+ /**
+  * Renderiza a tela com os dados do adm selecionado na linha.
+ */
+
+function VisualizarAdm() {
     const classes = useStyles(); 
     let { id } = useParams();
-    id = parseInt(id);
  
     const admFound = useSelector(state => selectAdmsById(state, id))
 
@@ -50,3 +65,5 @@ export default function VisualizarAdm() {
             </>
     );
 }
+
+export default VisualizarAdm

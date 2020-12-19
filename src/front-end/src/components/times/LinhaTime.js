@@ -7,8 +7,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
+/**
+ * @module times/LinhaTime
+ */
 
-const LinhaTime = (props) => {
+ /**
+ * @typedef Time
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do time.
+  */
+
+ /**
+  * Renderiza uma linha na listagem de times. 
+  * Cada linha conterá o nome do time, juntamente com os botões para editar e excluir.
+  * @param {Time} props.time - Time a ser renderizado na linha.
+  */
+
+function LinhaTime(props) {
   if(props != null && props.time != null && props.time.id != null){
     return(
       <>

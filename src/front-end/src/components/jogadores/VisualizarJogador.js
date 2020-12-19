@@ -29,9 +29,24 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-function VisualizarJogador() {
+/**
+ * @module jogadores/VisualizarJogador
+ */
+
+ /**
+ * @typedef Jogador
+ * @type {object}
+ * @property {string} id - identificador.
+ * @property {string} nome - nome do jogador.
+ * @property {date} data_nascimento - data de nascimento do jogador.
+   */
+
+ /**
+  * Renderiza a tela com os dados do jogador selecionado na linha.
+ */
+
+ function VisualizarJogador() {
     let { id } = useParams();
-    id = parseInt(id);
  
     const jogadorFound = useSelector(state => selectJogadoresById(state, id))
 

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, useHistory } from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useForm} from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import { makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -35,8 +35,30 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
-  
-export default function FormPartida(props) {
+
+/**
+ * @module partidas/FormPartida
+ */
+
+ /**
+ * @typedef Partida
+ * @type {object}
+ * @property {string} id - identificador.
+ * @property {date} data - data da partida.
+ * @property {string} arbitro - árbitro da partida.
+ * @property {string} local - local da partida.
+ * @property {string} time_A - nome do time A da partida.
+ * @property {number} gols_time_A - quantidade de gols do time A da partida.
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string} time_B - nome do time B da partida.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de uma nova partida ou a alteração dos dados da partida selecionada na lista. 
+ */
+
+ function FormPartida() {
+    let { id } = useParams();
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -46,7 +68,7 @@ export default function FormPartida(props) {
     const [jogadoresTimeA, setJogadoresTimeA] = useState([]);
     const [jogadoresTimeB, setJogadoresTimeB] = useState([]);
     const jogadores = useSelector(selectAllJogadores);
-    const times = useSelector(selectAllTimes);
+    const times     = useSelector(selectAllTimes);
 
     const addJogadorTimeA = () => {
         setJogadoresTimeA(jogadoresTimeA => [...jogadoresTimeA, <AdicionaJogador jogadores={jogadores} />]);
@@ -56,22 +78,13 @@ export default function FormPartida(props) {
         setJogadoresTimeB(jogadoresTimeB => [...jogadoresTimeB, <AdicionaJogador jogadores={jogadores} />]);
       };
 
-
-    useEffect(() => {
-       dispatch(fetchJogadores(jogadores))
-       dispatch(fetchTimes(times))
-    }, [] )
-  
-
-    let { id } = useParams();
-    id = parseInt(id);
-
     const partidaFound = useSelector(state => selectPartidasById(state, id))
+
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(partidaSchema)
     });
 
-    const [partidaOnLoad] = useState(
+    const [partidaOnLoad, setPartida] = useState(
         id ? partidaFound ?? partidaSchema.cast({}): partidaSchema.cast({}));
 
     const [actionType, ] = useState(
@@ -80,6 +93,17 @@ export default function FormPartida(props) {
                 : 'partidas/addPartida'
             : 'partidas/addPartida');
 
+    const handleChange = (event) => {
+        alert(event.target.value)
+        setPartida(event.target.value);
+    };
+
+    
+    useEffect(() => {
+        dispatch(fetchJogadores(jogadores))
+        dispatch(fetchTimes(times))
+    }, [] )
+    
     function onSubmit(partida){
         if(actionType === 'partidas/addPartida'){
             dispatch(addPartidaServer(partida));
@@ -91,10 +115,11 @@ export default function FormPartida(props) {
     }                
 
     return( <>
-                <h1>{(partidaOnLoad.id ?? 0) === 0 ? "Nova Partida" : "Editar Partida"}</h1>
+                <h1>{partidaOnLoad.id == null ? "Nova Partida" : "Editar Partida"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
-                    {(partidaOnLoad.id ?? 0) === 0 ?
+                    {partidaOnLoad.id == null 
+                    ?
                         <TextField 
                             id="data_partida" 
                             label="Data" 
@@ -155,21 +180,27 @@ export default function FormPartida(props) {
                     
                     <Grid container direction="row">
                         <Grid container direction="column" item xs={6} >
-                           <Grid direction="row" justify="space-between">
+                            <Grid direction="row" justify="space-between">
                                 <TextField
-                                    id="time_A"
+                                    id="id_time_A"
                                     label="Time A" 
-                                    name="time_A"
+                                    name="id_time_A"
                                     size="small"
-                                     defaultValue={partidaOnLoad.time_A} 
+                                    value={partidaOnLoad.id_time_A}
                                     inputRef={register}
-                                    helperText={errors.time_A?.message} 
-                                    error={errors.time_A?.message ? true: false} 
+                                    helperText={errors.id_time_A?.message} 
+                                    error={errors.id_time_A?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 100}}
-                                    size="small"
                                     required
-                                />
+                                    select
+                                    onChange={handleChange}>
+                                    {times.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.nome}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                                 &nbsp;&nbsp;&nbsp;
                                 <TextField
                                     id="gols_time_A"
@@ -183,7 +214,6 @@ export default function FormPartida(props) {
                                     error={errors.gols_time_A?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 35}}
-                                    size="small"
                                     required
                                 />
                             </Grid>
@@ -216,24 +246,29 @@ export default function FormPartida(props) {
                                     error={errors.gols_time_B?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 35}}
-                                    size="small"
                                     required
                                 />
                                  &nbsp;&nbsp;&nbsp;
-                                <TextField
-                                    id="time_B"
+                                 <TextField
+                                    id="id_time_B"
                                     label="Time B" 
-                                    name="time_B"
+                                    name="id_time_B"
                                     size="small"
-                                    defaultValue={partidaOnLoad.time_B} 
+                                    value={partidaOnLoad.id_time_B}
                                     inputRef={register}
-                                    helperText={errors.time_B?.message} 
-                                    error={errors.time_B?.message ? true: false} 
+                                    helperText={errors.id_time_B?.message} 
+                                    error={errors.id_time_B?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 100}}
-                                    size="small"
                                     required
-                                /> 
+                                    select
+                                    onChange={handleChange}>
+                                    {times.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.nome}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
                             <br/><br/>
                             <Grid container direction="row" justify="flex-start">
@@ -293,3 +328,5 @@ function AdicionaJogador(props) {
             </>
     );
 }
+
+export default FormPartida

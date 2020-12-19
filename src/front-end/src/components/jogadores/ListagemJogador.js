@@ -8,8 +8,17 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import {deleteJogadorServer, fetchJogadores, selectAllJogadores} from './JogadoresSlice'
 import TabelaJogadores from './TabelaJogadores'
 
+/**
+ * @module jogadores/ListagemJogadores
+ */
 
-export default function ListagemJogador(props) {
+/**
+ * Renderiza a tela de Listagem de jogadores.
+ * 
+ */
+
+function ListagemJogador() {
+
     const jogadores = useSelector(selectAllJogadores)
     const status = useSelector(state => state.jogadores.status);
     const error = useSelector(state => state.jogadores.error);
@@ -56,3 +65,5 @@ export default function ListagemJogador(props) {
             </>
     );
   }
+
+  export default ListagemJogador

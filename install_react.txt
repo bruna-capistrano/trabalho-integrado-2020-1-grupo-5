@@ -1,0 +1,21 @@
+Front-End
+---------
+Nodejs 			https://nodejs.org/en/
+React			npx create-react-app <nome-da-pasta-da-aplicação>
+Yarnpm			npm install --global yarn
+Navegação		yarn add react-router-dom
+Redux			yarn add @reduxjs/toolkit
+Redux DevTools		https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd/related?hl=pt-BR
+react -> redux		yarn add react-redux
+json-server		npm install -g json-server
+start json-server	npm run json-server
+Validação form		yarn add yup react-hook-form @hookform/resolvers yup-locale-pt
+Material UI		yarn add @material-ui/core @material-ui/icons
+JSDoc			npm install -g jsdoc
+
+Back-End
+--------
+Inicializar projeto	npm init
+Express			npm install express --save
+Dependências		npm install
+MongoDB			https://www.mongodb.com/try/download/community		

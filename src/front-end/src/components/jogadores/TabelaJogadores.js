@@ -4,8 +4,18 @@ import List from '@material-ui/core/List';
 
 import LinhaJogador from './LinhaJogador';
 
+/**
+ * @module jogadores/TabelaJogadores
+ */
 
-export default function TabelaJogadores(props) {
+/**
+ * Renderiza a tabela de jogadores.
+ * 
+ * @param {object} props.jogadores - Lista de jogadores para ser exibida na tabela.
+ * 
+ */
+
+ function TabelaJogadores(props) {
   if(props != null && props.jogadores != null && props.jogadores.length > 0){
     return(
         <Box justifyContent="flex-start">
@@ -19,3 +29,5 @@ export default function TabelaJogadores(props) {
     return(<div>Não existem jogadores a serem exibidos.</div>)
   }
 }
+
+export default TabelaJogadores

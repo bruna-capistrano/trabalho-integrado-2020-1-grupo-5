@@ -1,11 +1,11 @@
-import {string, object, number, Image ,setLocale} from 'yup';
+import {string, object, setLocale} from 'yup';
 import { ptForm } from 'yup-locale-pt';
 
 setLocale(ptForm)
 
 export let timeSchema = object().shape(
     {
-        id: number(),
+        id: string(),
         nome: string().required().max(50)
     }
 )

@@ -4,8 +4,18 @@ import List from '@material-ui/core/List';
 
 import LinhaPartida from './LinhaPartida';
 
+/**
+ * @module partidas/TabelaPartidas
+ */
 
-export default function TabelaPartidas(props) {
+/**
+ * Renderiza a tabela de partidas.
+ * 
+ * @param {object} props.partidas - Lista de partidas para ser exibida na tabela.
+ * 
+ */
+
+function TabelaPartidas(props) {
   if(props != null && props.partidas != null && props.partidas.length > 0){
     return(
         <Box justifyContent="flex-start">
@@ -19,3 +29,5 @@ export default function TabelaPartidas(props) {
     return(<div>Não existem partidas a serem exibidas.</div>)
   }
 }
+
+export default TabelaPartidas

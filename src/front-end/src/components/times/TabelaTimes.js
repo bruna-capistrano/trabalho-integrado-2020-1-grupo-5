@@ -5,7 +5,18 @@ import List from '@material-ui/core/List';
 import LinhaTime from './LinhaTime';
 
 
-export default function TabelaTimes(props) {
+/**
+ * @module times/TabelaTimes
+ */
+
+/**
+ * Renderiza a tabela de times.
+ * 
+ * @param {object} props.times - Lista de times para ser exibida na tabela.
+ * 
+ */
+
+function TabelaTimes(props) {
   if(props != null && props.times != null && props.times.length > 0){
     return(
         <Box justifyContent="flex-start">
@@ -19,3 +30,5 @@ export default function TabelaTimes(props) {
     return(<div>Não existem times a serem exibidos.</div>)
   }
 }
+
+export default TabelaTimes

@@ -7,8 +7,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
+/**
+ * @module jogadores/LinhaJogador
+ */
 
-const LinhaJogador = (props) => {
+ /**
+ * @typedef Jogador
+ * @type {object}
+ * @property {string} id - identificador.
+ * @property {string} nome - nome do jogador.
+  */
+
+ /**
+  * Renderiza uma linha na listagem de jogadores. 
+  * Cada linha conterá o nome do jogador, juntamente com os botões para editar e excluir.
+  * @param {Jogador} props.jogador - Jogador a ser renderizado na linha.
+  */
+
+function LinhaJogador(props) {
 
   if(props != null && props.jogador != null && props.jogador.id != null){
       return(

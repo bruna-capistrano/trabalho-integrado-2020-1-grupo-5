@@ -31,7 +31,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function FormJogador(props) {
+/**
+ * @module jogadores/FormJogador
+ */
+
+ /**
+ * @typedef Jogador
+ * @type {object}
+ * @property {string} id - identificador.
+ * @property {string} nome - nome do jogador.
+ * @property {date} data_nascimento - data de nascimento do jogador.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de um novo jogador ou a alteração dos dados do jogador selecionado na lista. 
+ */
+
+function FormJogador() {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -39,7 +55,6 @@ export default function FormJogador(props) {
     const classes = useStyles(); 
 
     let { id } = useParams();
-    id = parseInt(id);
 
     const jogadorFound = useSelector(state => selectJogadoresById(state, id))
     const { register, handleSubmit, errors } = useForm({
@@ -66,7 +81,7 @@ export default function FormJogador(props) {
     }    
 
     return( <>
-                <h1>{(jogadorOnLoad.id ?? 0) === 0 ? "Novo Jogador" : "Editar Jogador"}</h1>
+                <h1>{jogadorOnLoad.id == null ? "Novo Jogador" : "Editar Jogador"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 
@@ -112,3 +127,5 @@ export default function FormJogador(props) {
             </>
         );
 }
+
+export default FormJogador
